@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "749262016632",
+    "firebase_url": "https://kinbo-ami.firebaseio.com",
+    "project_id": "kinbo-ami",
+    "storage_bucket": "kinbo-ami.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749262016632:android:d961af271b4b95efe85d8d",
+        "android_client_info": {
+          "package_name": "sarkar.kinboami"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749262016632-6j2l4g0smj22dnc9b3120d284vfpk389.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sarkar.kinboami",
+            "certificate_hash": "62ee45739081ec54bfcdd48ccc252729c5664e97"
+          }
+        },
+        {
+          "client_id": "749262016632-jj2n9ggnrjtmfrbkuba49qrcjefnipit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDshdCt6al97GCIRk6ldh0X-XNlFJ40JN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749262016632-jj2n9ggnrjtmfrbkuba49qrcjefnipit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
