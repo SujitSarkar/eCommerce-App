@@ -225,7 +225,6 @@ public class Login extends AppCompatActivity {
                             //Save UserData into Prevalent class...
                             Prevalent.currentOnlineUser = userData;
                             startActivity(intent);
-                            finish();
                     } else{
                         loadingDialog.dismiss();
                         loginPassword.setError("Incorrect Password");

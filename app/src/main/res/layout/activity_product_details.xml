@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProductDetailsActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="17dp"
+        android:paddingEnd="17dp"
+        android:paddingTop="5dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/back_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            app:cardElevation="0dp">
+            <ImageView
+                android:id="@+id/back_to_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"
+                android:background="@drawable/white_ripple" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/product_image_details"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/back_card"
+            android:scaleType="fitCenter"
+            android:src="@drawable/profile" />
+        <TextView
+            android:id="@+id/product_name_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_image_details"
+            android:text="Product Name"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/product_desc_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_name_details"
+            android:text="Product Description"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/product_price_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_desc_details"
+            android:text="Product Price"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="10dp"/>
+
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:id="@+id/product_quantity_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:initialNumber="1"
+            app:finalNumber="5"
+            app:textColor="#000"
+            app:backGroundColor="#fff"
+            app:textSize="6sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/product_price_details"
+            android:layout_centerHorizontal="true">
+        </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/product_quantity_btn"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:cardElevation="0dp">
+            <ImageView
+                android:id="@+id/add_to_cart_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_cart_white"
+                android:layout_gravity="center"
+                android:background="@drawable/black_ripple"/>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -45,6 +45,7 @@ public class Home extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
     private AppBarConfiguration mAppBarConfiguration;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,11 +158,21 @@ public class Home extends AppCompatActivity {
         FirebaseRecyclerAdapter<ProductDetails, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<ProductDetails, ProductViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull ProductDetails productDetails) {
+                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final ProductDetails productDetails) {
 
                         holder.product_name.setText(productDetails.getName());
                         holder.product_price.setText(productDetails.getPrice()+ " ৳");
                         Picasso.get().load(productDetails.getImage()).into(holder.product_image);
+
+                        //If user click on single item then go to the ProductDetailsActivity...
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(Home.this,ProductDetailsActivity.class);
+                                intent.putExtra("pid", productDetails.getPid());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @NonNull
@@ -172,6 +183,7 @@ public class Home extends AppCompatActivity {
                         return holder;
                     }
                 };
+
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
