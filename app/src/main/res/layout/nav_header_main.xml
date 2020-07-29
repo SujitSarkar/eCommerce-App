@@ -28,7 +28,8 @@
                 android:id="@+id/user_profile_image"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/profile"
+                android:scaleType="centerCrop"/>
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
     </RelativeLayout>
     <TextView

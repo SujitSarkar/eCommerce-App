@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -81,6 +82,7 @@ public class Home extends AppCompatActivity {
         ImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
         profileNameTextView.setText(Prevalent.currentOnlineUser.getName());
+        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
@@ -111,6 +113,7 @@ public class Home extends AppCompatActivity {
                 if (id == R.id.nav_setting){
                     Intent intent = new Intent(Home.this, Settings.class);
                     startActivity(intent);
+                    finish();
                 }
                 if (id== R.id.nav_logout){
                     Paper.book().destroy();
@@ -123,6 +126,8 @@ public class Home extends AppCompatActivity {
                 return false;
             }
         });
+
+
     }
 
 

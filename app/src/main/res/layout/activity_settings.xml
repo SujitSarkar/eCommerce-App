@@ -62,7 +62,8 @@
                 android:id="@+id/settings_profile_image"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/profile"
+                android:scaleType="centerCrop"/>
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
         <Button
@@ -83,20 +84,7 @@
             android:layout_below="@id/profile_image_change_btn"
             android:layout_margin="17dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Phone"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/profile_image_change_btn">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:drawableLeft="@drawable/ic_phone"
-                    android:id="@+id/settings_phone_number"
-                    android:inputType="number"/>
-            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TL2"
