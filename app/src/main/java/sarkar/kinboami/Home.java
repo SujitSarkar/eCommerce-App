@@ -51,6 +51,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         productRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
         recyclerView = findViewById(R.id.recycler_menu);
@@ -73,6 +74,8 @@ public class Home extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -91,6 +94,8 @@ public class Home extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        ShowProduct();
 
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -131,16 +136,23 @@ public class Home extends AppCompatActivity {
     }
 
 
-
-
-
     @Override
     protected void onStart() {
         super.onStart();
+        ShowProduct();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ShowProduct();
+    }
+
+    public void ShowProduct(){
         FirebaseRecyclerOptions<ProductDetails> options=
                 new FirebaseRecyclerOptions.Builder<ProductDetails>()
-                .setQuery(productRef, ProductDetails.class)
-                .build();
+                        .setQuery(productRef, ProductDetails.class)
+                        .build();
 
         FirebaseRecyclerAdapter<ProductDetails, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<ProductDetails, ProductViewHolder>(options) {
@@ -163,8 +175,6 @@ public class Home extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
-
-
 
 
 
