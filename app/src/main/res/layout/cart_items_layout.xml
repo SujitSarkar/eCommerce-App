@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:weightSum="1"
             android:orientation="horizontal"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:padding="5dp">
             <TextView
                 android:id="@+id/cart_product_name"
                 android:layout_width="match_parent"
