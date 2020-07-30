@@ -38,6 +38,7 @@ public class CartActivity extends AppCompatActivity {
     private Button order_button;
     private ImageView back_to_home;
     LoadingDialog loadingDialog;
+    private int totalPrice=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,19 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        order_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                total_price.setText("Total Price: "+String.valueOf(totalPrice)+" ৳");
+
+                Intent intent = new Intent(CartActivity.this,ConfirmFinalOrder.class);
+                intent.putExtra("total price",String.valueOf(totalPrice));
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -83,6 +97,10 @@ public class CartActivity extends AppCompatActivity {
                         holder.cart_product_qtty.setText(cartModel.getQuantity());
                         holder.cart_product_price.setText(cartModel.getPrice());
                         Picasso.get().load(cartModel.getImage()).into(holder.cart_product_image);
+
+                        //Calculate Total Product Price...
+                        int eachProductPriceWithQtty = Integer.valueOf(cartModel.getPrice()) * Integer.valueOf(cartModel.getQuantity());
+                        totalPrice = totalPrice + eachProductPriceWithQtty;
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -127,6 +145,7 @@ public class CartActivity extends AppCompatActivity {
                                 builder.show();
                             }
                         });
+                        total_price.setText("Total Price: "+String.valueOf(totalPrice));
                     }
 
                     @NonNull
@@ -139,6 +158,7 @@ public class CartActivity extends AppCompatActivity {
                 };
         cart_list.setAdapter(adapter);
         adapter.startListening();
+
 
     }
 
