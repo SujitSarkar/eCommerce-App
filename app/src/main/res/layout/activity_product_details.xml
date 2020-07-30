@@ -88,9 +88,10 @@
             android:layout_height="50dp"
             android:layout_below="@+id/product_quantity_btn"
             app:cardBackgroundColor="@color/colorPrimary"
+            android:background="@drawable/black_ripple"
             app:cardCornerRadius="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             app:cardElevation="0dp">
             <ImageView
                 android:id="@+id/add_to_cart_btn"

@@ -35,6 +35,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private ElegantNumberButton product_quantity_btn;
     private String productId = "";
     private String productImage;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         product_price_details = findViewById(R.id.product_price_details);
 
         product_quantity_btn = findViewById(R.id.product_quantity_btn);
+
+        loadingDialog = new LoadingDialog(this);
 
         //Receive intent data from Home Activity...
         productId = getIntent().getStringExtra("pid");
@@ -85,6 +88,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         final CartList cartList = new CartList(productId,product_name_details.getText().toString(),product_price_details.getText().toString(),saveCurrentDate,saveCurrentTime,product_quantity_btn.getNumber(),"",productImage);
 
+        loadingDialog.start();
         cartReference.child("User View").child(Prevalent.currentOnlineUser.getPhone())
                 .child("Products").child(productId)
                 .setValue(cartList)
@@ -100,14 +104,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
+                                                loadingDialog.dismiss();
                                                 Toast.makeText(ProductDetailsActivity.this, "Product Added To Cart List", Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(ProductDetailsActivity.this,Home.class);
                                                 startActivity(intent);
                                                 finish();
-                                            }else { Toast.makeText(ProductDetailsActivity.this, "Product Added Failed", Toast.LENGTH_LONG).show(); }
+                                            }else {
+                                                loadingDialog.dismiss();
+                                                Toast.makeText(ProductDetailsActivity.this, "Product Added Failed", Toast.LENGTH_LONG).show(); }
                                         }
                                     });
-                        }else{ Toast.makeText(ProductDetailsActivity.this, "Product Added Failed", Toast.LENGTH_LONG).show(); }
+                        }else{
+                            loadingDialog.dismiss();
+                            Toast.makeText(ProductDetailsActivity.this, "Product Added Failed", Toast.LENGTH_LONG).show(); }
                     }
                 });
     }
