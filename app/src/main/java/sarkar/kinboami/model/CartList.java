@@ -9,10 +9,11 @@ public class CartList {
     private String time;
     private String quantity;
     private String discount;
+    private String image;
 
     public CartList(){}
 
-    public CartList(String pid, String name, String price, String date, String time, String quantity, String discount) {
+    public CartList(String pid, String name, String price, String date, String time, String quantity, String discount,String image) {
         this.pid = pid;
         this.name = name;
         this.price = price;
@@ -20,6 +21,15 @@ public class CartList {
         this.time = time;
         this.quantity = quantity;
         this.discount = discount;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getPid() {

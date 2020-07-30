@@ -34,6 +34,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView product_name_details,product_desc_details,product_price_details;
     private ElegantNumberButton product_quantity_btn;
     private String productId = "";
+    private String productImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         final DatabaseReference cartReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
-        final CartList cartList = new CartList(productId,product_name_details.getText().toString(),product_price_details.getText().toString(),saveCurrentDate,saveCurrentTime,product_quantity_btn.getNumber(),"");
+        final CartList cartList = new CartList(productId,product_name_details.getText().toString(),product_price_details.getText().toString(),saveCurrentDate,saveCurrentTime,product_quantity_btn.getNumber(),"",productImage);
 
         cartReference.child("User View").child(Prevalent.currentOnlineUser.getPhone())
                 .child("Products").child(productId)
@@ -123,7 +124,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     Picasso.get().load(products.getImage()).into(product_image_details);
                     product_name_details.setText(products.getName());
                     product_desc_details.setText(products.getDescription());
-                    product_price_details.setText(products.getPrice()+" ৳");
+                    product_price_details.setText(products.getPrice());
+
+                    productImage = products.getImage();
                 }
             }
 
