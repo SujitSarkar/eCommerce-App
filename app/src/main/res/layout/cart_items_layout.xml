@@ -27,15 +27,16 @@
                 android:id="@+id/cart_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.2"
                 android:textColor="#fff"
                 android:text="Product Name"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/cart_product_qtty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.8"
                 android:text="Quantity"
                 android:textAlignment="viewEnd"
                 android:textColor="#fff"
