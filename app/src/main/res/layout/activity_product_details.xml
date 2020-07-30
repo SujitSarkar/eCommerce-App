@@ -83,13 +83,26 @@
             android:layout_centerHorizontal="true">
         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
+        <TextView
+            android:id="@+id/mgs1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_quantity_btn"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:visibility="gone"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/product_quantity_btn"
+            android:layout_below="@+id/mgs1"
             app:cardBackgroundColor="@color/colorPrimary"
             android:background="@drawable/black_ripple"
             app:cardCornerRadius="50dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:cardElevation="0dp">

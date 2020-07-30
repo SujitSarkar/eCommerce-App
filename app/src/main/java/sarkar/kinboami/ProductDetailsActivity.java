@@ -31,9 +31,9 @@ import sarkar.kinboami.prevalent.Prevalent;
 public class ProductDetailsActivity extends AppCompatActivity {
 
     private ImageView product_image_details,back_to_home,add_to_cart_btn;
-    private TextView product_name_details,product_desc_details,product_price_details;
+    private TextView product_name_details,product_desc_details,product_price_details,mgs1;
     private ElegantNumberButton product_quantity_btn;
-    private String productId = "";
+    private String productId = "", state = "normal";
     private String productImage;
     LoadingDialog loadingDialog;
 
@@ -45,6 +45,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         back_to_home = findViewById(R.id.back_to_home);
         product_image_details = findViewById(R.id.product_image_details);
         add_to_cart_btn = findViewById(R.id.add_to_cart_btn);
+        mgs1 = findViewById(R.id.mgs1);
 
         product_name_details = findViewById(R.id.product_name_details);
         product_desc_details = findViewById(R.id.product_desc_details);
@@ -68,9 +69,22 @@ public class ProductDetailsActivity extends AppCompatActivity {
         add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddingToCartList();
+                if (state.equals("order shipped") || state.equals("order placed")){
+                    mgs1.setVisibility(View.VISIBLE);
+                    mgs1.setText("You can purchase more product once your order is shipped or confirmed.");
+                }
+                else {
+                    AddingToCartList();
+                }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        CheckOrderState();
     }
 
     private void AddingToCartList() {
@@ -136,6 +150,32 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     product_price_details.setText(products.getPrice());
 
                     productImage = products.getImage();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void CheckOrderState(){
+        DatabaseReference ordersRef;
+        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String shippingState = snapshot.child("state").getValue().toString();
+
+                    if (shippingState.equals("shipped")){
+                        state = "order shipped";
+                    }
+                    else if (shippingState.equals("not shipped")){
+                        state = "order placed";
+                    }
                 }
             }
 

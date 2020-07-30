@@ -1,14 +1,24 @@
 package sarkar.kinboami;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import sarkar.kinboami.model.Orders;
 import sarkar.kinboami.prevalent.Prevalent;
 
 public class ConfirmFinalOrder extends AppCompatActivity {
@@ -34,7 +44,6 @@ public class ConfirmFinalOrder extends AppCompatActivity {
 
         //Receive total Orderd Product Price from CartActivity...
         totalAmount = getIntent().getStringExtra("total price");
-        Toast.makeText(this, totalAmount+" ৳", Toast.LENGTH_LONG).show();
 
         order_user_name.getEditText().setText(Prevalent.currentOnlineUser.getName());
         order_user_phone.getEditText().setText(Prevalent.currentOnlineUser.getPhone());
@@ -43,11 +52,61 @@ public class ConfirmFinalOrder extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateName() && validatePhone() && validateCity() && validateDist() && validateRegion() && validateHouse() && validatePostal()){
-
+                    ConfirmOrder();
                 }
                 else {return;}
             }
         });
+    }
+
+    private void ConfirmOrder() {
+        String date,time;
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        date = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+        time = currentTime.format(calendar.getTime());
+
+        String name= order_user_name.getEditText().getText().toString();
+        String phone= order_user_phone.getEditText().getText().toString();
+        String city= order_user_city.getEditText().getText().toString();
+        String district= order_user_dist.getEditText().getText().toString();
+        String region= order_user_region.getEditText().getText().toString();
+        String house= order_user_houseNo.getEditText().getText().toString();
+        String postal= order_user_postalCode.getEditText().getText().toString();
+
+        final DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference()
+                .child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+        Orders orders = new Orders(name,phone,totalAmount,city,district,region,house,postal,date,time,"not shipped");
+        orderReference.setValue(orders)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    //Remove "cart list" data...
+                    FirebaseDatabase.getInstance().getReference().child("Cart List")
+                            .child("User View").child(Prevalent.currentOnlineUser.getPhone())
+                            .removeValue()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(ConfirmFinalOrder.this, "Your order has been placed successfully", Toast.LENGTH_LONG).show();
+                                        Intent intent =new Intent(ConfirmFinalOrder.this,Home.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }else { Toast.makeText(ConfirmFinalOrder.this, task.getException().getMessage(), Toast.LENGTH_LONG).show(); }
+                                }
+                            });
+                }
+            }
+        });
+
     }
 
     private boolean validateName(){
