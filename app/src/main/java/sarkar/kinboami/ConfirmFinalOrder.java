@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,7 @@ public class ConfirmFinalOrder extends AppCompatActivity {
     private TextInputLayout order_user_name,order_user_phone,order_user_city,order_user_dist,
             order_user_region,order_user_houseNo,order_user_postalCode;
     private Button confirm_order_btn;
+    private ImageView back_to_CartList;
     private String totalAmount ="";
 
     @Override
@@ -32,6 +34,7 @@ public class ConfirmFinalOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_final_order);
 
+        back_to_CartList = findViewById(R.id.back_to_CartList);
         order_user_name = findViewById(R.id.order_user_name);
         order_user_phone = findViewById(R.id.order_user_phone);
         order_user_city = findViewById(R.id.order_user_city);
@@ -47,6 +50,15 @@ public class ConfirmFinalOrder extends AppCompatActivity {
 
         order_user_name.getEditText().setText(Prevalent.currentOnlineUser.getName());
         order_user_phone.getEditText().setText(Prevalent.currentOnlineUser.getPhone());
+
+        back_to_CartList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ConfirmFinalOrder.this,CartActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         confirm_order_btn.setOnClickListener(new View.OnClickListener() {
             @Override

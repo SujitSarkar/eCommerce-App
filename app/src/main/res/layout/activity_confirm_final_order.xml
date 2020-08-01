@@ -8,25 +8,51 @@
     android:padding="17dp"
     tools:context=".ConfirmFinalOrder">
 
+
+
     <RelativeLayout
         android:id="@+id/RL1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/txt"
+
+        <RelativeLayout
+            android:id="@+id/RL2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please Write Your Order Details"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
-            android:textAlignment="center"
-            android:textStyle="bold"/>
+            android:layout_alignParentTop="true"
+            android:background="@color/white">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/back_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/back_to_CartList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back"
+                    android:background="@drawable/white_ripple" />
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/back_card"
+                android:text="Conform Your Address"
+                android:textColor="@color/colorPrimary"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/txt"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/RL2">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

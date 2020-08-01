@@ -27,6 +27,7 @@ public class AdminNewOrder extends AppCompatActivity {
     private RecyclerView order_list;
     private RecyclerView.LayoutManager layoutManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class AdminNewOrder extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent =new Intent(AdminNewOrder.this,AdminCategory.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -60,7 +62,7 @@ public class AdminNewOrder extends AppCompatActivity {
         FirebaseRecyclerAdapter<Orders, AdminOrdersViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Orders, AdminOrdersViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, int position, @NonNull Orders orders) {
+                    protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, final int position, @NonNull final Orders orders) {
                         holder.order_user_name.setText(orders.getName());
                         holder.order_user_phone.setText(orders.getPhone());
                         holder.order_time_date.setText(orders.getDate()+"; "+orders.getTime());
@@ -70,6 +72,16 @@ public class AdminNewOrder extends AppCompatActivity {
                         holder.user_region.setText(orders.getRegion());
                         holder.user_house.setText(orders.getHouse());
                         holder.user_postal.setText(orders.getPostal());
+
+                        holder.show_product_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String uid = getRef(position).getKey();
+                                Intent intent = new Intent(AdminNewOrder.this, AdminUserProducts.class);
+                                intent.putExtra("uid",uid);
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @NonNull

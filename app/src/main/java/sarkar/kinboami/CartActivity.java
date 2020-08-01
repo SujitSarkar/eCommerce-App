@@ -127,6 +127,7 @@ public class CartActivity extends AppCompatActivity {
                                         }
                                         if (index==1){
                                             loadingDialog.start();
+                                            //Delete Cart List from User View...
                                             cartListRef.child("User View")
                                                     .child(Prevalent.currentOnlineUser.getPhone())
                                                     .child("Products")
@@ -136,11 +137,25 @@ public class CartActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()){
-                                                                loadingDialog.dismiss();
-                                                                Toast.makeText(CartActivity.this, "Item Deleted", Toast.LENGTH_LONG).show();
-
+                                                                //Delete Cart List from Admin View...
+                                                                cartListRef.child("Admin View")
+                                                                        .child(Prevalent.currentOnlineUser.getPhone())
+                                                                        .child("Products")
+                                                                        .child(cartModel.getPid())
+                                                                        .removeValue()
+                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                if (task.isSuccessful()){
+                                                                                    loadingDialog.dismiss();
+                                                                                    Toast.makeText(CartActivity.this, "Item Deleted", Toast.LENGTH_LONG).show();
+                                                                                } else {
+                                                                                    loadingDialog.dismiss();
+                                                                                    Toast.makeText(CartActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            }
+                                                                        });
                                                             } else {
-                                                                loadingDialog.dismiss();
                                                                 Toast.makeText(CartActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                                             }
                                                         }
