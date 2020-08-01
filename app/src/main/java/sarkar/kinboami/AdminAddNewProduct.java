@@ -38,7 +38,7 @@ import java.util.UUID;
 import sarkar.kinboami.model.ProductDetails;
 
 public class AdminAddNewProduct extends AppCompatActivity {
-    private ImageView inputProductImage;
+    private ImageView inputProductImage,back_to_admin_home;
     private TextInputLayout inputProductName, inputProductDescription, inputProductPrice;
     private Button addNewProduct;
 
@@ -63,6 +63,8 @@ public class AdminAddNewProduct extends AppCompatActivity {
         inputProductPrice = findViewById(R.id.product_price);
         addNewProduct = findViewById(R.id.add_new_product);
 
+        back_to_admin_home = findViewById(R.id.back_to_admin_home);
+
         //create loading bar object...
         loadingDialog = new LoadingDialog(AdminAddNewProduct.this);
 
@@ -73,6 +75,14 @@ public class AdminAddNewProduct extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         //Create DB Product Child Reference...
         productReference = FirebaseDatabase.getInstance().getReference().child("Products");
+
+        back_to_admin_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(AdminAddNewProduct.this,AdminCategory.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

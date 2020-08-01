@@ -11,6 +11,38 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
+        <RelativeLayout
+            android:id="@+id/RL1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/white">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/back_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/back_to_admin_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back"
+                    android:background="@drawable/white_ripple" />
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/back_card"
+                android:text="Add New Product"
+                android:textColor="@color/colorPrimary"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
         <ImageView
             android:id="@+id/select_product_image"
             android:layout_width="300dp"
@@ -21,7 +53,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:onClick="SelectProductImage"
-            android:background="@drawable/white_ripple"/>
+            android:background="@drawable/white_ripple"
+            android:layout_below="@id/RL1"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
