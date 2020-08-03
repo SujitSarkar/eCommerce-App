@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchProducts"></activity>
+        <activity android:name=".AdminMaintainProduct"></activity>
+        <activity android:name=".SearchProducts" />
         <activity android:name=".AdminUserProducts" />
         <activity android:name=".AdminNewOrder" />
         <activity android:name=".ConfirmFinalOrder" />

@@ -10,7 +10,7 @@
     android:padding="17dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/slogan_category"
@@ -402,11 +402,23 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <LinearLayout
+
+        <Button
+            android:id="@+id/maintain_product_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_below="@+id/linear4_category_layout"
+            android:text="Maintain Order"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/black_ripple"
+            android:layout_marginEnd="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/LLB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/maintain_product_btn"
             android:weightSum="1"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">

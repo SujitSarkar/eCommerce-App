@@ -46,6 +46,7 @@ public class Home extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     LoadingDialog loadingDialog;
+    private String type="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,12 @@ public class Home extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            type = getIntent().getStringExtra("Admin");
+        }
 
         Paper.init(this);
 
@@ -85,8 +92,10 @@ public class Home extends AppCompatActivity {
         TextView profileNameTextView = headerView.findViewById(R.id.user_profile_name);
         ImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
-        profileNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        if (!type.equals("Admin")){
+            profileNameTextView.setText(Prevalent.currentOnlineUser.getName());
+            Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
@@ -167,13 +176,27 @@ public class Home extends AppCompatActivity {
                         holder.product_price.setText(productDetails.getPrice()+ " ৳");
                         Picasso.get().load(productDetails.getImage()).into(holder.product_image);
 
+
                         //If user click on single item then go to the ProductDetailsActivity...
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(Home.this,ProductDetailsActivity.class);
-                                intent.putExtra("pid", productDetails.getPid());
-                                startActivity(intent);
+
+                                if (type.equals("Admin")){
+                                    Intent intent = new Intent(Home.this,AdminMaintainProduct.class);
+                                    intent.putExtra("pid",productDetails.getPid());
+                                    intent.putExtra("pname",productDetails.getName());
+                                    intent.putExtra("pimage",productDetails.getImage());
+                                    intent.putExtra("pcat",productDetails.getCategory());
+                                    intent.putExtra("pprice",productDetails.getPrice());
+                                    intent.putExtra("pdescription",productDetails.getDescription());
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Intent intent = new Intent(Home.this,ProductDetailsActivity.class);
+                                    intent.putExtra("pid", productDetails.getPid());
+                                    startActivity(intent);
+                                }
                             }
                         });
                     }
