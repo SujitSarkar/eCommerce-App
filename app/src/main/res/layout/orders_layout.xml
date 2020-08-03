@@ -226,17 +226,37 @@
                 android:paddingStart="10dp"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/show_product_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/white_ripple"
-            android:includeFontPadding="false"/>
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <Button
+                android:id="@+id/show_product_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show Order"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_ripple"
+                android:includeFontPadding="false"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="5dp"/>
+            <Button
+                android:id="@+id/confirm_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm Order"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_ripple"
+                android:includeFontPadding="false"
+                android:layout_weight="0.5"
+                android:layout_marginStart="5dp"/>
 
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

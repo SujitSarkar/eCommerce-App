@@ -14,12 +14,19 @@ import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import io.paperdb.Paper;
 import sarkar.kinboami.ViewHolder.CartViewHolder;
 import sarkar.kinboami.model.CartList;
+import sarkar.kinboami.prevalent.Prevalent;
 
 public class AdminUserProducts extends AppCompatActivity {
     private RecyclerView products_list;
@@ -27,7 +34,8 @@ public class AdminUserProducts extends AppCompatActivity {
     private DatabaseReference cartListReference;
     private ImageView back_to_admin_orders;
 
-    private String userID;
+    private String userID,chkDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class AdminUserProducts extends AppCompatActivity {
         cartListReference = FirebaseDatabase.getInstance().getReference().
                 child("Cart List").child("Admin View").child(userID).child("Products");
 
+
         back_to_admin_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +68,7 @@ public class AdminUserProducts extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         FirebaseRecyclerOptions<CartList> options =
                 new FirebaseRecyclerOptions.Builder<CartList>()
                 .setQuery(cartListReference,CartList.class)
@@ -72,6 +82,12 @@ public class AdminUserProducts extends AppCompatActivity {
                         holder.cart_product_qtty.setText(cartModel.getQuantity());
                         holder.cart_product_price.setText(cartModel.getPrice()+" ৳");
                         Picasso.get().load(cartModel.getImage()).into(holder.cart_product_image);
+
+                        //cartModel = new CartList(cartModel.getPid(),cartModel.getName(),cartModel.getPrice(),cartModel.getDate(),cartModel.getTime(),
+                                //cartModel.getQuantity(),cartModel.getDiscount(),cartModel.getImage());
+
+                                //shippedRef.child(cartModel.getPid()).child(crntDate+";"+crntTime).setValue(cartModel);
+
                     }
 
                     @NonNull

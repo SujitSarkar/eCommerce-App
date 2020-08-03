@@ -12,7 +12,7 @@ import sarkar.kinboami.R;
 
 public class AdminOrdersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView order_user_name,order_user_phone,total_price,user_city,user_dist,user_region,user_house,user_postal,order_time_date;
-    public Button show_product_btn;
+    public Button show_product_btn,confirm_btn;
     private ItemClickListener listener;
 
     public AdminOrdersViewHolder(@NonNull View itemView) {
@@ -27,7 +27,9 @@ public class AdminOrdersViewHolder extends RecyclerView.ViewHolder implements Vi
         user_house = itemView.findViewById(R.id.user_house);
         user_postal = itemView.findViewById(R.id.user_postal);
         order_time_date = itemView.findViewById(R.id.order_date_time);
+
         show_product_btn = itemView.findViewById(R.id.show_product_btn);
+        confirm_btn = itemView.findViewById(R.id.confirm_btn);
     }
     @Override
     public void onClick(View view) {

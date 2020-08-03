@@ -13,8 +13,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,7 +26,7 @@ import sarkar.kinboami.model.Orders;
 import sarkar.kinboami.prevalent.Prevalent;
 
 public class ConfirmFinalOrder extends AppCompatActivity {
-    private TextInputLayout order_user_name,order_user_phone,order_user_city,order_user_dist,
+    private TextInputLayout order_user_name,order_user_city,order_user_dist,
             order_user_region,order_user_houseNo,order_user_postalCode;
     private Button confirm_order_btn;
     private ImageView back_to_CartList;
@@ -36,7 +39,6 @@ public class ConfirmFinalOrder extends AppCompatActivity {
 
         back_to_CartList = findViewById(R.id.back_to_CartList);
         order_user_name = findViewById(R.id.order_user_name);
-        order_user_phone = findViewById(R.id.order_user_phone);
         order_user_city = findViewById(R.id.order_user_city);
         order_user_dist = findViewById(R.id.order_user_dist);
         order_user_region = findViewById(R.id.order_user_region);
@@ -48,8 +50,7 @@ public class ConfirmFinalOrder extends AppCompatActivity {
         //Receive total Orderd Product Price from CartActivity...
         totalAmount = getIntent().getStringExtra("total price");
 
-        order_user_name.getEditText().setText(Prevalent.currentOnlineUser.getName());
-        order_user_phone.getEditText().setText(Prevalent.currentOnlineUser.getPhone());
+        SetPreviousEnteredUserInfo();
 
         back_to_CartList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +64,36 @@ public class ConfirmFinalOrder extends AppCompatActivity {
         confirm_order_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateName() && validatePhone() && validateCity() && validateDist() && validateRegion() && validateHouse() && validatePostal()){
+                if (validateName() && validateCity() && validateDist() && validateRegion() && validateHouse() && validatePostal()){
                     ConfirmOrder();
                 }
                 else {return;}
+            }
+        });
+    }
+
+    private void SetPreviousEnteredUserInfo() {
+        order_user_name.getEditText().setText(Prevalent.currentOnlineUser.getName());
+
+        final DatabaseReference shippedRef = FirebaseDatabase.getInstance().getReference().child("Shipped Orders").child("Recent Order")
+                .child(Prevalent.currentOnlineUser.getPhone());
+        shippedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Orders orders = snapshot.getValue(Orders.class);
+
+                    order_user_city.getEditText().setText(orders.getCity());
+                    order_user_dist.getEditText().setText(orders.getDistrict());
+                    order_user_region.getEditText().setText(orders.getRegion());
+                    order_user_houseNo.getEditText().setText(orders.getHouse());
+                    order_user_postalCode.getEditText().setText(orders.getPostal());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -83,7 +110,6 @@ public class ConfirmFinalOrder extends AppCompatActivity {
         time = currentTime.format(calendar.getTime());
 
         String name= order_user_name.getEditText().getText().toString();
-        String phone= order_user_phone.getEditText().getText().toString();
         String city= order_user_city.getEditText().getText().toString();
         String district= order_user_dist.getEditText().getText().toString();
         String region= order_user_region.getEditText().getText().toString();
@@ -92,7 +118,7 @@ public class ConfirmFinalOrder extends AppCompatActivity {
 
         final DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference()
                 .child("Orders").child(Prevalent.currentOnlineUser.getPhone());
-        Orders orders = new Orders(name,phone,totalAmount,city,district,region,house,postal,date,time,"not shipped");
+        Orders orders = new Orders(name,Prevalent.currentOnlineUser.getPhone(),totalAmount,city,district,region,house,postal,date,time,"not shipped");
         orderReference.setValue(orders)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -130,18 +156,6 @@ public class ConfirmFinalOrder extends AppCompatActivity {
         else{
             order_user_name.setError(null);
             order_user_name.setErrorEnabled(false);
-            return true;
-        }
-    }
-    private boolean validatePhone(){
-        String val = order_user_phone.getEditText().getText().toString();
-        if (val.isEmpty()){
-            order_user_phone.setError("Field can't be empty");
-            return false;
-        }
-        else{
-            order_user_phone.setError(null);
-            order_user_phone.setErrorEnabled(false);
             return true;
         }
     }
