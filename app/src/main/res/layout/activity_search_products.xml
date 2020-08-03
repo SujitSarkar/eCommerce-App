@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:hint="Search Product here..."
-            android:paddingStart="10dp">
+            android:paddingStart="10dp"
+            android:inputType="text">
         </com.google.android.material.textfield.TextInputEditText>
 
         <ImageView
@@ -56,7 +57,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_list"
+        android:id="@+id/search_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"

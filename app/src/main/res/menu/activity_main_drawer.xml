@@ -11,9 +11,9 @@
             android:iconTint="@color/white"
             android:iconTintMode="add"/>
         <item
-            android:id="@+id/nav_order"
-            android:icon="@drawable/todo_list"
-            android:title="Order"
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="Search Product"
             android:iconTint="@color/white"/>
         <item
             android:id="@+id/nav_categories"
