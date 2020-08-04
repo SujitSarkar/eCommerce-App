@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,19 +14,13 @@ import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import io.paperdb.Paper;
+import sarkar.kinboami.R;
 import sarkar.kinboami.ViewHolder.CartViewHolder;
 import sarkar.kinboami.model.CartList;
-import sarkar.kinboami.prevalent.Prevalent;
 
 public class AdminUserProducts extends AppCompatActivity {
     private RecyclerView products_list;
@@ -58,7 +52,7 @@ public class AdminUserProducts extends AppCompatActivity {
         back_to_admin_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(AdminUserProducts.this,AdminNewOrder.class);
+                Intent intent =new Intent(AdminUserProducts.this, AdminNewOrder.class);
                 startActivity(intent);
                 finish();
             }

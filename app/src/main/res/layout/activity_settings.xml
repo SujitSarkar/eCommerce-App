@@ -93,11 +93,11 @@
                 android:hint="Full Name"
                 android:layout_marginTop="20dp">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/settings_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:drawableLeft="@drawable/ic_full_name"
-                    android:id="@+id/settings_full_name"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,13 +107,23 @@
                 android:hint="Address"
                 android:layout_marginTop="20dp">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/settings_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:drawableLeft="@drawable/ic_address"
-                    android:id="@+id/settings_address"
                     android:inputType="textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/security_question_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_ripple"
+                android:text="Set Security Question"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
 

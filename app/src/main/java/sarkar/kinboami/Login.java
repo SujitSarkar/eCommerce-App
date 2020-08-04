@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
+import sarkar.kinboami.Admin.AdminCategory;
 import sarkar.kinboami.model.Users;
 import sarkar.kinboami.prevalent.Prevalent;
 
@@ -66,6 +68,15 @@ public class Login extends AppCompatActivity {
                 not_admin_panel.setVisibility(View.INVISIBLE);
                 admin_panel_link.setVisibility(View.VISIBLE);
                 parentDB = "Users";
+            }
+        });
+
+        forget_password_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this,ResetPassword.class);
+                intent.putExtra("check","login");
+                startActivity(intent);
             }
         });
 
@@ -178,6 +189,7 @@ public class Login extends AppCompatActivity {
                             } else{
                                 loadingDialog.dismiss();
                                 loginPassword.setError("Incorrect Password");
+                                forget_password_link.setVisibility(View.VISIBLE);
                             }
                     }
                     else {
@@ -228,6 +240,7 @@ public class Login extends AppCompatActivity {
                     } else{
                         loadingDialog.dismiss();
                         loginPassword.setError("Incorrect Password");
+                        forget_password_link.setVisibility(View.VISIBLE);
                     }
                 }
                 else {

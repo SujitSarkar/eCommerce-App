@@ -12,10 +12,10 @@ public class LoadingDialog {
     private Activity activity;
     private AlertDialog dialog;
 
-    LoadingDialog(Activity myActivity){
+    public LoadingDialog(Activity myActivity){
         activity = myActivity;
     }
-    void start(){
+    public void start(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         builder.setView(inflater.inflate(activity_loading_bar,null));
@@ -25,7 +25,7 @@ public class LoadingDialog {
         dialog.show();
     }
 
-    void dismiss(){
+    public void dismiss(){
         dialog.dismiss();
     }
 }

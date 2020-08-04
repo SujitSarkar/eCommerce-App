@@ -78,21 +78,33 @@
                     android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/remember_me_chk"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:textSize="16dp" />
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/remember_me_chk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.5"
+                    android:text="Remember me"
+                    android:textSize="16dp" />
 
-            <Button
-                android:id="@+id/forget_password_link"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Forgot Password?"
-                android:background="@drawable/white_ripple"
-                android:layout_gravity="right"
-                android:layout_marginBottom="10dp"/>
+                <Button
+                    android:id="@+id/forget_password_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/white_ripple"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#37C303"
+                    android:includeFontPadding="false"
+                    android:text="forget password ?"
+                    android:textSize="13dp"
+                    android:visibility="invisible"/>
+            </LinearLayout>
+
             <Button
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
@@ -102,6 +114,7 @@
                 android:textColor="#fff"
                 android:fontFamily="@font/bungee"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
                 android:onClick="UserSignIn"/>
             <Button
                 android:id="@+id/logSign"
@@ -113,29 +126,33 @@
                 android:onClick="loginToSignUp"/>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/not_admin_panel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I'm not Admin?"
-                android:textSize="20dp"
+                android:layout_weight="0.5"
+                android:text="Login as User"
+                android:textSize="18dp"
                 android:padding="5dp"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/admin_panel_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_weight="0.5"
                 android:padding="5dp"
-                android:text="I'm an Admin?"
-                android:textSize="20dp" />
+                android:text="Login as Admin"
+                android:textSize="18dp"
+                android:textAlignment="viewEnd" />
 
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

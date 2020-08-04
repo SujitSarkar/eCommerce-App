@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import sarkar.kinboami.Login;
+import sarkar.kinboami.R;
 
 public class AdminCategory extends AppCompatActivity {
     private ImageView t_shirt_IV,jersey_IV,female_dress_IV,sweater_IV;
@@ -41,8 +44,7 @@ public class AdminCategory extends AppCompatActivity {
         maintain_product_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdminCategory.this, Home.class);
-                intent.putExtra("Admin","Admin");
+                Intent intent = new Intent(AdminCategory.this, AdminProductView.class);
                 startActivity(intent);
             }
         });

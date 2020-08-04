@@ -31,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import io.paperdb.Paper;
 import sarkar.kinboami.ViewHolder.ProductViewHolder;
@@ -41,40 +42,45 @@ public class Home extends AppCompatActivity {
 
     private DatabaseReference productRef;
 
+    private SwipeRefreshLayout swipe_refresh_layout;
+
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
     private AppBarConfiguration mAppBarConfiguration;
     LoadingDialog loadingDialog;
-    private String type="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-        productRef = FirebaseDatabase.getInstance().getReference().child("Products");
+        swipe_refresh_layout = findViewById(R.id.swipe_refresh_layout);
 
         recyclerView = findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null){
-            type = getIntent().getStringExtra("Admin");
-        }
+        productRef = FirebaseDatabase.getInstance().getReference().child("Products");
+
 
         Paper.init(this);
+
+        swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipe_refresh_layout.setRefreshing(false);
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,10 +98,10 @@ public class Home extends AppCompatActivity {
         TextView profileNameTextView = headerView.findViewById(R.id.user_profile_name);
         ImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
-        if (!type.equals("Admin")){
-            profileNameTextView.setText(Prevalent.currentOnlineUser.getName());
-            Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
-        }
+        //Set profile picture and Name...
+        profileNameTextView.setText(Prevalent.currentOnlineUser.getName());
+        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
@@ -105,7 +111,6 @@ public class Home extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        ShowProduct();
 
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -155,11 +160,6 @@ public class Home extends AppCompatActivity {
         ShowProduct();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        ShowProduct();
-    }
 
     public void ShowProduct(){
         FirebaseRecyclerOptions<ProductDetails> options=
@@ -182,21 +182,10 @@ public class Home extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                if (type.equals("Admin")){
-                                    Intent intent = new Intent(Home.this,AdminMaintainProduct.class);
-                                    intent.putExtra("pid",productDetails.getPid());
-                                    intent.putExtra("pname",productDetails.getName());
-                                    intent.putExtra("pimage",productDetails.getImage());
-                                    intent.putExtra("pcat",productDetails.getCategory());
-                                    intent.putExtra("pprice",productDetails.getPrice());
-                                    intent.putExtra("pdescription",productDetails.getDescription());
-                                    startActivity(intent);
-                                }
-                                else {
                                     Intent intent = new Intent(Home.this,ProductDetailsActivity.class);
                                     intent.putExtra("pid", productDetails.getPid());
                                     startActivity(intent);
-                                }
+
                             }
                         });
                     }

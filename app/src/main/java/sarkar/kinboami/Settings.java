@@ -47,7 +47,7 @@ import sarkar.kinboami.prevalent.Prevalent;
 public class Settings extends AppCompatActivity {
     private TextView close_settings_btn,update_account_settings_btn;
     private ImageView settings_profile_image;
-    private Button profile_image_change_btn;
+    private Button profile_image_change_btn,security_question_btn;
     private TextInputEditText settings_full_name,settings_address;
 
     private Uri imageUri;
@@ -71,6 +71,7 @@ public class Settings extends AppCompatActivity {
         update_account_settings_btn = findViewById(R.id.update_account_settings_btn);
         settings_profile_image = findViewById(R.id.settings_profile_image);
         profile_image_change_btn = findViewById(R.id.profile_image_change_btn);
+        security_question_btn = findViewById(R.id.security_question_btn);
 
         settings_full_name = findViewById(R.id.settings_full_name);
         settings_address = findViewById(R.id.settings_address);
@@ -115,6 +116,15 @@ public class Settings extends AppCompatActivity {
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent,1);
+            }
+        });
+
+        security_question_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this,ResetPassword.class);
+                intent.putExtra("check","settings");
+                startActivity(intent);
             }
         });
     }

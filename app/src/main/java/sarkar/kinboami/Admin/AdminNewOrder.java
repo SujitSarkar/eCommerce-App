@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import io.paperdb.Paper;
+import sarkar.kinboami.LoadingDialog;
+import sarkar.kinboami.R;
 import sarkar.kinboami.ViewHolder.AdminOrdersViewHolder;
 import sarkar.kinboami.model.CartList;
 import sarkar.kinboami.model.Orders;
-import sarkar.kinboami.prevalent.Prevalent;
 
 public class AdminNewOrder extends AppCompatActivity {
     private ImageView back_to_admin_home;
@@ -64,7 +63,7 @@ public class AdminNewOrder extends AppCompatActivity {
         back_to_admin_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(AdminNewOrder.this,AdminCategory.class);
+                Intent intent =new Intent(AdminNewOrder.this, AdminCategory.class);
                 startActivity(intent);
                 finish();
             }
