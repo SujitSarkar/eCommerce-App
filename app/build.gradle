@@ -48,4 +48,6 @@ dependencies {
     implementation 'io.paperdb:paperdb:2.7.1'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
+    implementation 'com.github.joielechong:countrycodepicker:2.4.2'
+
 }
