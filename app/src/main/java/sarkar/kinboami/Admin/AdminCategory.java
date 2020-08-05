@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import sarkar.kinboami.Login;
+import sarkar.kinboami.Buyer.Login;
 import sarkar.kinboami.R;
 
 public class AdminCategory extends AppCompatActivity {

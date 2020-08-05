@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import android.app.Activity;
 import android.app.AlertDialog;

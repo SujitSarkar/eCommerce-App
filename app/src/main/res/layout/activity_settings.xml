@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings">
+    tools:context=".Buyer.Settings">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -120,10 +120,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/black_ripple"
-                android:text="Set Security Question"
+                android:text="Update Password"
                 android:textColor="#fff"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="40dp"/>
 
         </LinearLayout>
 

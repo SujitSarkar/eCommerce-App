@@ -1,11 +1,10 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,9 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import sarkar.kinboami.R;
 import sarkar.kinboami.ViewHolder.CartViewHolder;
 import sarkar.kinboami.model.CartList;
-import sarkar.kinboami.model.ProductDetails;
 import sarkar.kinboami.prevalent.Prevalent;
 
 public class CartActivity extends AppCompatActivity {
@@ -63,7 +62,7 @@ public class CartActivity extends AppCompatActivity {
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CartActivity.this,Home.class);
+                Intent intent = new Intent(CartActivity.this, Home.class);
                 startActivity(intent);
             }
         });
@@ -74,7 +73,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 total_price.setText("Total Price: "+String.valueOf(totalPrice)+" ৳");
 
-                Intent intent = new Intent(CartActivity.this,ConfirmFinalOrder.class);
+                Intent intent = new Intent(CartActivity.this, ConfirmFinalOrder.class);
                 intent.putExtra("total price",String.valueOf(totalPrice));
                 startActivity(intent);
                 finish();

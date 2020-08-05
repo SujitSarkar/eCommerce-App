@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import sarkar.kinboami.LoadingDialog;
+import sarkar.kinboami.Buyer.LoadingDialog;
 import sarkar.kinboami.R;
 import sarkar.kinboami.ViewHolder.AdminOrdersViewHolder;
 import sarkar.kinboami.model.CartList;

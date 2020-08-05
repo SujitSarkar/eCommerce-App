@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import sarkar.kinboami.R;
 import sarkar.kinboami.model.Orders;
 import sarkar.kinboami.prevalent.Prevalent;
 
@@ -55,7 +56,7 @@ public class ConfirmFinalOrder extends AppCompatActivity {
         back_to_CartList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ConfirmFinalOrder.this,CartActivity.class);
+                Intent intent = new Intent(ConfirmFinalOrder.this, CartActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -133,7 +134,7 @@ public class ConfirmFinalOrder extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(ConfirmFinalOrder.this, "Your order has been placed successfully", Toast.LENGTH_LONG).show();
-                                        Intent intent =new Intent(ConfirmFinalOrder.this,Home.class);
+                                        Intent intent =new Intent(ConfirmFinalOrder.this, Home.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                         finish();

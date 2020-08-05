@@ -1,8 +1,7 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -20,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import sarkar.kinboami.R;
 import sarkar.kinboami.ViewHolder.ProductViewHolder;
 import sarkar.kinboami.model.ProductDetails;
 
@@ -52,7 +52,7 @@ public class SearchProducts extends AppCompatActivity {
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(SearchProducts.this,Home.class);
+                Intent intent= new Intent(SearchProducts.this, Home.class);
                 startActivity(intent);
                 finish();
             }
@@ -90,7 +90,7 @@ public class SearchProducts extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                Intent intent = new Intent(SearchProducts.this,ProductDetailsActivity.class);
+                                Intent intent = new Intent(SearchProducts.this, ProductDetailsActivity.class);
                                 intent.putExtra("pid", productDetails.getPid());
                                 startActivity(intent);
                             }

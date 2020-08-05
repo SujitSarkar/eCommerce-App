@@ -1,7 +1,6 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -10,12 +9,10 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +31,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import io.paperdb.Paper;
+import sarkar.kinboami.R;
 import sarkar.kinboami.ViewHolder.ProductViewHolder;
 import sarkar.kinboami.model.ProductDetails;
 import sarkar.kinboami.prevalent.Prevalent;
@@ -84,7 +82,7 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this,CartActivity.class);
+                Intent intent = new Intent(Home.this, CartActivity.class);
                 startActivity(intent);
             }
         });
@@ -126,7 +124,7 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (id== R.id.nav_search){
-                    Intent intent =new Intent(Home.this,SearchProducts.class);
+                    Intent intent =new Intent(Home.this, SearchProducts.class);
                     startActivity(intent);
 
                 }
@@ -140,7 +138,7 @@ public class Home extends AppCompatActivity {
                 }
                 if (id== R.id.nav_logout){
                     Paper.book().destroy();
-                    Intent intent = new Intent(Home.this,Login.class);
+                    Intent intent = new Intent(Home.this, Login.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
@@ -182,7 +180,7 @@ public class Home extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                    Intent intent = new Intent(Home.this,ProductDetailsActivity.class);
+                                    Intent intent = new Intent(Home.this, ProductDetailsActivity.class);
                                     intent.putExtra("pid", productDetails.getPid());
                                     startActivity(intent);
 

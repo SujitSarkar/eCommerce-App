@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import sarkar.kinboami.Home;
 import sarkar.kinboami.R;
 
 public class HomeFragment extends Fragment {

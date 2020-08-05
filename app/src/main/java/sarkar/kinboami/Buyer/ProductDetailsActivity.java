@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import sarkar.kinboami.R;
 import sarkar.kinboami.model.CartList;
 import sarkar.kinboami.model.ProductDetails;
 import sarkar.kinboami.prevalent.Prevalent;
@@ -62,7 +62,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailsActivity.this,Home.class);
+                Intent intent = new Intent(ProductDetailsActivity.this, Home.class);
                 startActivity(intent);
             }
         });

@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
-import sarkar.kinboami.LoadingDialog;
+import sarkar.kinboami.Buyer.LoadingDialog;
 import sarkar.kinboami.R;
 import sarkar.kinboami.model.ProductDetails;
 

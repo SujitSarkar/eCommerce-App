@@ -1,4 +1,4 @@
-package sarkar.kinboami;
+package sarkar.kinboami.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,26 +26,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
-import java.security.PrivateKey;
 import java.util.concurrent.TimeUnit;
 
 import io.paperdb.Paper;
-import sarkar.kinboami.Admin.AdminNewOrder;
+import sarkar.kinboami.R;
 import sarkar.kinboami.model.Users;
 import sarkar.kinboami.prevalent.Prevalent;
 
 public class ResetPassword extends AppCompatActivity {
     private String check;
-    private TextInputLayout on_user_current_password,on_user_new_password,off_user_phone,off_user_otp;
+    private TextInputLayout on_user_current_password,on_user_new_password,off_user_phone,off_user_otp,off_user_new_password;
     private Button get_otp_btn,reset_password_btn,resend_code_btn,verify_otp_btn;
     CountryCodePicker ccp;
     DatabaseReference userRef;
     LoadingDialog loadingDialog;
 
     FirebaseAuth fAuth;
-    String verificationId;
+    String verificationId,phnWithoutCountryCode;
     PhoneAuthProvider.ForceResendingToken token;
     boolean verificationInProgress = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +64,12 @@ public class ResetPassword extends AppCompatActivity {
         on_user_new_password = findViewById(R.id.on_user_new_password);
         off_user_phone = findViewById(R.id.off_user_phone);
         off_user_otp = findViewById(R.id.off_user_otp);
+        off_user_new_password = findViewById(R.id.off_user_new_password);
         get_otp_btn = findViewById(R.id.get_otp_btn);
         reset_password_btn = findViewById(R.id.reset_password_btn);
         resend_code_btn = findViewById(R.id.resend_code_btn);
         verify_otp_btn = findViewById(R.id.verify_otp_btn);
+
 
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -76,6 +78,9 @@ public class ResetPassword extends AppCompatActivity {
             public void onClick(View view) {
                 if (check.equals("settings")){
                     CurrentOnlineUserPasswordReset();
+                }
+                if (check.equals("login")){
+                    ResetOfflineUserPassword();
                 }
             }
         });
@@ -90,7 +95,7 @@ public class ResetPassword extends AppCompatActivity {
         get_otp_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String phnWithoutCountryCode = "0"+off_user_phone.getEditText().getText().toString();
+                phnWithoutCountryCode = "0"+off_user_phone.getEditText().getText().toString();
                 final String phoneWithCountryCode = "+"+ccp.getSelectedCountryCode()+off_user_phone.getEditText().getText().toString();
 
                 if (!verificationInProgress){
@@ -134,22 +139,31 @@ public class ResetPassword extends AppCompatActivity {
     }
 
     private void VerifyAuth(PhoneAuthCredential credential) {
+        loadingDialog.start();
         fAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    loadingDialog.dismiss();
                     Toast.makeText(ResetPassword.this, "Authentication Successful", Toast.LENGTH_LONG).show();
+                    off_user_otp.setVisibility(View.GONE);
+                    verify_otp_btn.setVisibility(View.GONE);
+                    off_user_new_password.setVisibility(View.VISIBLE);
+                    reset_password_btn.setVisibility(View.VISIBLE);
+                    ResetOfflineUserPassword();
                 }
                 else {
+                    loadingDialog.dismiss();
                     Toast.makeText(ResetPassword.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
+
     private void RequestForOTP(String phoneWithCountryCode) {
 
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneWithCountryCode, 60L, TimeUnit.SECONDS, this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneWithCountryCode, 120L, TimeUnit.SECONDS, this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
@@ -168,11 +182,12 @@ public class ResetPassword extends AppCompatActivity {
             @Override
             public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
                 super.onCodeAutoRetrievalTimeOut(s);
+                Toast.makeText(ResetPassword.this, "Request timeout, Try again", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                VerifyAuth(phoneAuthCredential);
             }
 
             @Override
@@ -197,6 +212,46 @@ public class ResetPassword extends AppCompatActivity {
             get_otp_btn.setVisibility(View.VISIBLE);
             ccp.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void ResetOfflineUserPassword() {
+        final String offlineUserNewPassword = off_user_new_password.getEditText().getText().toString();
+        userRef.child(phnWithoutCountryCode).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    loadingDialog.start();
+                    Users users = snapshot.getValue(Users.class);
+                    if (validateOffUserPassword()){
+                        Users users1 = new Users(users.getName(),users.getPhone(),offlineUserNewPassword,users.getImage(),users.getAddress());
+                        userRef.child(users.getPhone()).setValue(users1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    loadingDialog.dismiss();
+                                    Toast.makeText(ResetPassword.this, "Password reset successful", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(ResetPassword.this, Login.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    loadingDialog.dismiss();
+                                    Toast.makeText(ResetPassword.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }else {
+                        loadingDialog.dismiss();
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ResetPassword.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void CurrentOnlineUserPasswordReset() {
@@ -232,7 +287,7 @@ public class ResetPassword extends AppCompatActivity {
                                         Paper.book().write(Prevalent.UserPhoneKey, users1.getPhone());
                                         Paper.book().write(Prevalent.UserPasswordKey, users1.getPassword());
                                         Prevalent.currentOnlineUser = users1;
-                                        Intent intent = new Intent(ResetPassword.this,Home.class);
+                                        Intent intent = new Intent(ResetPassword.this, Home.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }
@@ -303,6 +358,31 @@ public class ResetPassword extends AppCompatActivity {
         else{
             off_user_phone.setError(null);
             off_user_phone.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private boolean validateOffUserPassword(){
+        String val = off_user_new_password.getEditText().getText().toString();
+
+        String passwordVal = "^" +
+                //"(?=.*[0-9])" +        //at least 1 digit
+                "(?=.*[a-z])" +        //at least 1 lower case letter
+                //"(?=.*[A-Z])" +        //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +       //any letter
+                //"(?=.*[@#$%^&+=])" +     //at least 1 special character
+                "(?=\\S+$)" +            //no white spaces
+                ".{4,}" +                //at least 4 characters
+                "$";
+
+        if (val.isEmpty()) {
+            off_user_new_password.setError("Field can't be empty");
+            return false;
+        } else if (!val.matches(passwordVal)) {
+            off_user_new_password.setError("At least 4 characters, 1 lower case letter, no white space,");
+            return false;
+        } else {
+            off_user_new_password.setError(null);
+            off_user_new_password.setErrorEnabled(false);
             return true;
         }
     }
