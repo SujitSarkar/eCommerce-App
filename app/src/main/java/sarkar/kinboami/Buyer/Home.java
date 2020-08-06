@@ -46,7 +46,6 @@ public class Home extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
     private AppBarConfiguration mAppBarConfiguration;
-    LoadingDialog loadingDialog;
 
 
     @Override
@@ -126,9 +125,6 @@ public class Home extends AppCompatActivity {
                 if (id== R.id.nav_search){
                     Intent intent =new Intent(Home.this, SearchProducts.class);
                     startActivity(intent);
-
-                }
-                if (id== R.id.nav_categories){
 
                 }
                 if (id == R.id.nav_setting){

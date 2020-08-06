@@ -284,8 +284,8 @@ public class ResetPassword extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     if (i==0){
-                                        Paper.book().write(Prevalent.UserPhoneKey, users1.getPhone());
-                                        Paper.book().write(Prevalent.UserPasswordKey, users1.getPassword());
+                                        //Paper.book().write(Prevalent.UserPhoneKey, users1.getPhone());
+                                        //Paper.book().write(Prevalent.UserPasswordKey, users1.getPassword());
                                         Prevalent.currentOnlineUser = users1;
                                         Intent intent = new Intent(ResetPassword.this, Home.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -299,6 +299,7 @@ public class ResetPassword extends AppCompatActivity {
                                     }
                                 }
                             });
+                            builder.setCancelable(false);
                             builder.show();
 
                         }else {return;}

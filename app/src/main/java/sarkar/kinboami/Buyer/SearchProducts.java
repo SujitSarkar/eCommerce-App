@@ -28,7 +28,7 @@ public class SearchProducts extends AppCompatActivity {
     private ImageView back_to_home,search_btn;
     private TextInputEditText search_field;
     RecyclerView search_list;
-    private String searchInput;
+    private String searchInput="";
 
     RecyclerView.LayoutManager layoutManager;
     LoadingDialog loadingDialog;
@@ -43,7 +43,6 @@ public class SearchProducts extends AppCompatActivity {
         search_field = findViewById(R.id.search_field);
 
         search_list = findViewById(R.id.search_list);
-        //search_list.setHasFixedSize(true);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         search_list.setLayoutManager(layoutManager);
 
@@ -69,7 +68,6 @@ public class SearchProducts extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
 
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("Products");
         FirebaseRecyclerOptions<ProductDetails> options =

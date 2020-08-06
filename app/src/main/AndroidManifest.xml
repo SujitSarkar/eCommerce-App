@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Buyer.ResetPassword"></activity>
+        <activity android:name=".Buyer.ResetPassword" />
         <activity android:name=".Admin.AdminProductView" />
         <activity android:name=".Admin.AdminMaintainProduct" />
         <activity android:name=".Buyer.SearchProducts" />
