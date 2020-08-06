@@ -17,42 +17,42 @@
             android:id="@+id/yellowLine"
             android:layout_width="20dp"
             android:layout_height="80dp"
-            android:background="@drawable/yellow"
+            android:background="@drawable/black"
             android:layout_centerHorizontal="true"/>
         <View
             android:id="@+id/blueLine"
             android:layout_width="20dp"
             android:layout_height="130dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/blue"
+            android:background="@drawable/pink"
             android:layout_toRightOf="@+id/yellowLine"/>
         <View
             android:id="@+id/redLine"
             android:layout_width="20dp"
             android:layout_height="260dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/red"
+            android:background="@drawable/maroon"
             android:layout_toRightOf="@+id/blueLine"/>
         <View
             android:id="@+id/yellowLine2"
             android:layout_width="20dp"
             android:layout_height="180dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/yellow"
+            android:background="@drawable/blue"
             android:layout_toRightOf="@+id/redLine"/>
         <View
             android:id="@+id/greenLine"
             android:layout_width="20dp"
             android:layout_height="220dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/green"
+            android:background="@drawable/red"
             android:layout_toRightOf="@+id/yellowLine2"/>
         <View
             android:id="@+id/blueLine2"
             android:layout_width="20dp"
             android:layout_height="110dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/red"
+            android:background="@drawable/yellow"
             android:layout_toRightOf="@+id/greenLine"/>
     </RelativeLayout>
 
@@ -87,7 +87,7 @@
                 android:includeFontPadding="false"
                 android:text="Your Need Our Priority"
                 android:textColor="#2B2B2B"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:padding="10dp"/>
         </RelativeLayout>
 
